@@ -51,4 +51,5 @@ export const dashboardApi = {
   getUsers: () => api.get('/api/dashboard/users'),
   getUsersStatus: () => api.get('/api/dashboard/users-status'),
   getTasks: () => api.get('/api/dashboard/tasks'),
+  getCurrentUser: () => api.get('/api/dashboard/me'),
 };
