@@ -1,4 +1,4 @@
-const API_BASE = '';
+const API_BASE = import.meta.env.VITE_API_URL || '';
 
 const getAuthHeaders = () => {
   const token = localStorage.getItem('token');
@@ -31,13 +31,18 @@ export const api = {
   },
 
   async login(token) {
+    console.log('API login called with token:', token ? 'present' : 'missing');
     const res = await fetch(`${API_BASE}/api/auth/google`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ token }),
     });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    return res.json();
+    const data = await res.json();
+    if (!res.ok) {
+      console.error('Login API error:', res.status, data);
+      throw new Error(data.detail || `HTTP ${res.status}`);
+    }
+    return data;
   },
 };
 

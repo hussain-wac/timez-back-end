@@ -12,19 +12,23 @@ function LoginForm({ onLogin }) {
     setLoading(true);
     setError(null);
     try {
+      console.log('Sending credential to backend...');
       const response = await api.login(credentialResponse.credential);
+      console.log('Login response:', response);
       localStorage.setItem('token', response.access_token);
       localStorage.setItem('user', JSON.stringify(response.user));
       onLogin(response.user);
     } catch (err) {
-      setError('Login failed. Please try again.');
+      console.error('Login error:', err);
+      setError(`Login failed: ${err.message}`);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleGoogleError = () => {
-    setError('Google sign-in failed.');
+  const handleGoogleError = (err) => {
+    console.error('Google error:', err);
+    setError('Google sign-in failed. Check console for details.');
   };
 
   return (
