@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import { api } from './api';
 
-const GOOGLE_CLIENT_ID = '318168192015-7v60n5mji6b92g512b86bap15c6dtc4k.apps.googleusercontent.com';
+const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || '';
 
 function LoginForm({ onLogin }) {
   const [error, setError] = useState(null);
